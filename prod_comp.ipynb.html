@@ -1,0 +1,389 @@
+<html>
+<head>
+<title>prod_comp.ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #808080;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #cc7832;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+prod_comp.ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">#%% 
+</span><span class="s1">%%HTML 
+&lt;script src=&quot;require.js&quot;&gt;&lt;/script&gt; 
+</span><span class="s0">#%% 
+</span><span class="s2">import </span><span class="s1">pyreadr</span>
+<span class="s2">import </span><span class="s1">plotly.io </span><span class="s2">as </span><span class="s1">pio</span>
+<span class="s2">import </span><span class="s1">pandas </span><span class="s2">as </span><span class="s1">pd</span>
+<span class="s2">import </span><span class="s1">numpy </span><span class="s2">as </span><span class="s1">np</span>
+<span class="s2">import </span><span class="s1">requests</span>
+<span class="s2">import </span><span class="s1">io</span>
+<span class="s2">import </span><span class="s1">matplotlib.pyplot </span><span class="s2">as </span><span class="s1">plt</span>
+<span class="s2">from </span><span class="s1">sklearn.cluster </span><span class="s2">import </span><span class="s1">KMeans</span>
+<span class="s2">from </span><span class="s1">sklearn.metrics </span><span class="s2">import </span><span class="s1">silhouette_score</span>
+<span class="s2">from </span><span class="s1">sklearn.model_selection </span><span class="s2">import </span><span class="s1">RandomizedSearchCV</span>
+<span class="s2">from </span><span class="s1">sklearn.manifold </span><span class="s2">import </span><span class="s1">TSNE</span>
+<span class="s2">import </span><span class="s1">plotly.express </span><span class="s2">as </span><span class="s1">px</span>
+
+
+<span class="s0">###</span>
+<span class="s0">#https://www.datacamp.com/tutorial/introduction-t-sne</span>
+<span class="s0">#https://builtin.com/data-science/tsne-python</span>
+<span class="s0">#https://medium.com/swlh/everything-about-t-sne-dde964f0a8c1</span>
+<span class="s0">###</span>
+
+
+<span class="s1">pio.renderers.default=</span><span class="s3">'notebook'</span>
+
+
+<span class="s1">user=</span><span class="s3">'igalkej'</span>
+<span class="s1">pao=</span><span class="s3">'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'</span>
+
+<span class="s1">github_session = requests.Session()</span>
+<span class="s1">github_session.auth = (user</span><span class="s2">, </span><span class="s1">pao)</span>
+<span class="s0">#%% 
+</span>
+<span class="s1">result = pyreadr.read_r(</span><span class="s3">r&quot;C:\Users\igalk\OneDrive\Documentos\laburo\CONICET\2023\productivity_comparison\vcr_paises_6dig_02_21.RDS&quot;</span><span class="s1">)</span>
+
+<span class="s1">ncm_ciiu = github_session.get(</span><span class="s3">&quot;https://raw.githubusercontent.com/CEProduccionXXI/diccionarios/main/ncm/ncm%20-%20sectores/DICCIONARIO%20NCM%20CIIU.csv&quot;</span><span class="s1">).content</span>
+<span class="s1">ncm_ciiu = pd.read_csv(io.StringIO(ncm_ciiu.decode(</span><span class="s3">'utf-8'</span><span class="s1">))</span><span class="s2">, </span><span class="s1">sep=</span><span class="s3">&quot;;&quot;</span><span class="s2">, </span><span class="s1">error_bad_lines=</span><span class="s2">False, </span><span class="s1">dtype={</span><span class="s3">&quot;CIIU&quot;</span><span class="s1">:str</span><span class="s2">, </span><span class="s3">&quot;HS&quot;</span><span class="s1">:str})</span>
+
+<span class="s1">empleo = pd.read_csv(</span><span class="s3">&quot;empleo_ISIC4_2000_2022.csv&quot;</span><span class="s1">)</span>
+
+<span class="s1">codigos = pd.read_csv(</span><span class="s3">'country_codes_V202301.csv'</span><span class="s1">)</span>
+<span class="s1">codigos[</span><span class="s3">'iso_2digit_alpha'</span><span class="s1">] = codigos.iso_2digit_alpha.str.lower()</span>
+
+<span class="s0">#%% 
+</span><span class="s1">raw_data = result[</span><span class="s2">None</span><span class="s1">]</span>
+<span class="s0">#%% 
+</span><span class="s1">raw_data[</span><span class="s3">&quot;k&quot;</span><span class="s1">] = raw_data[</span><span class="s3">&quot;k&quot;</span><span class="s1">].astype(str).str.rstrip(</span><span class="s3">&quot;.0&quot;</span><span class="s1">)</span>
+<span class="s1">raw_data = raw_data[raw_data[</span><span class="s3">'k'</span><span class="s1">].str.len() &gt; </span><span class="s4">4</span><span class="s1">]</span>
+<span class="s1">raw_data.head()</span>
+
+<span class="s0">#%% 
+</span><span class="s1">raw_data = pd.merge(raw_data</span><span class="s2">, </span><span class="s1">ncm_ciiu</span><span class="s2">, </span><span class="s1">left_on=</span><span class="s3">&quot;k&quot;</span><span class="s2">, </span><span class="s1">right_on=</span><span class="s3">&quot;HS&quot;</span><span class="s2">, </span><span class="s1">how=</span><span class="s3">&quot;left&quot;</span><span class="s1">).drop(columns=</span><span class="s3">&quot;HS&quot;</span><span class="s1">).dropna()</span>
+<span class="s1">raw_data[</span><span class="s3">&quot;CIIU&quot;</span><span class="s1">] = raw_data[</span><span class="s3">&quot;CIIU&quot;</span><span class="s1">].astype(str)</span>
+<span class="s1">raw_data[</span><span class="s3">&quot;CIIU&quot;</span><span class="s1">] = raw_data[</span><span class="s3">&quot;CIIU&quot;</span><span class="s1">].apply(</span><span class="s2">lambda </span><span class="s1">x: x.zfill(</span><span class="s4">4</span><span class="s1">) </span><span class="s2">if </span><span class="s1">len(x)==</span><span class="s4">3 </span><span class="s2">else </span><span class="s1">x)</span>
+<span class="s1">raw_data[</span><span class="s3">&quot;CIIU_2d&quot;</span><span class="s1">] = raw_data[</span><span class="s3">&quot;CIIU&quot;</span><span class="s1">].str[:</span><span class="s4">2</span><span class="s1">]</span>
+<span class="s0">#%% 
+</span><span class="s1">raw_data = raw_data.merge(codigos[[</span><span class="s3">'country_name_abbreviation'</span><span class="s2">, </span><span class="s3">'iso_2digit_alpha' </span><span class="s1">]]</span><span class="s2">, </span><span class="s1">left_on=</span><span class="s3">'country'</span><span class="s2">, </span><span class="s1">right_on=</span><span class="s3">'iso_2digit_alpha'</span><span class="s2">, </span><span class="s1">how= </span><span class="s3">'left'</span><span class="s1">).drop(columns=[</span><span class="s3">'iso_2digit_alpha'</span><span class="s2">, </span><span class="s3">'country'</span><span class="s1">])</span>
+
+<span class="s0">#%% 
+</span><span class="s1">empleo = empleo.merge(codigos[[</span><span class="s3">'country_name_abbreviation'</span><span class="s2">, </span><span class="s3">'iso_3digit_alpha' </span><span class="s1">]]</span><span class="s2">, </span><span class="s1">left_on=</span><span class="s3">'ref_area'</span><span class="s2">, </span><span class="s1">right_on=</span><span class="s3">'iso_3digit_alpha'</span><span class="s2">, </span><span class="s1">how= </span><span class="s3">'left'</span><span class="s1">).drop(columns=[</span><span class="s3">'iso_3digit_alpha'</span><span class="s2">, </span><span class="s3">'ref_area'</span><span class="s1">])</span>
+<span class="s0">#%% md 
+</span><span class="s1">Ahora vamos a filtrar un sector y quedarnos con todos los países que exportan los productos de ese sector 
+</span><span class="s0">#%% 
+</span><span class="s1">sum_expo_sector = raw_data.groupby([</span><span class="s3">'country'</span><span class="s2">, </span><span class="s3">'t'</span><span class="s2">,</span><span class="s3">'CIIU_2d'</span><span class="s1">]</span><span class="s2">, </span><span class="s1">as_index=</span><span class="s2">False</span><span class="s1">)[</span><span class="s3">'v'</span><span class="s1">].sum()</span>
+<span class="s0">#%% 
+</span><span class="s2">def </span><span class="s1">split_sector(df</span><span class="s2">, </span><span class="s1">sector:str):</span>
+    <span class="s1">df_Sector = df.loc[df.CIIU_2d== sector</span><span class="s2">, </span><span class="s1">[</span><span class="s3">'country'</span><span class="s2">,</span><span class="s3">'k'</span><span class="s2">, </span><span class="s3">'v'</span><span class="s1">]]</span>
+    <span class="s1">df_Sector[</span><span class="s3">'prop_hs_pais'</span><span class="s1">] = df[</span><span class="s3">'prop_expo'</span><span class="s1">]</span>
+    <span class="s1">df_Sector[</span><span class="s3">'prop_hs_mundo'</span><span class="s1">] = df[</span><span class="s3">'v'</span><span class="s1">]/df[</span><span class="s3">'expos_mundo_producto'</span><span class="s1">]</span>
+    <span class="s1">df_Sector[</span><span class="s3">'prop_pais_mundo'</span><span class="s1">] = df_Sector[</span><span class="s3">'prop_hs_pais'</span><span class="s1">]/df_Sector[</span><span class="s3">'prop_hs_mundo'</span><span class="s1">]</span>
+    <span class="s1">corr = df_Sector.corr()</span>
+    <span class="s1">display(corr)</span>
+    <span class="s2">return </span><span class="s1">df_Sector</span>
+<span class="s0">#%% 
+</span>
+<span class="s0"># Create a function to calculate the negative KL divergence of t-SNE</span>
+<span class="s2">def </span><span class="s1">tsne_neg_kl_div(X</span><span class="s2">, </span><span class="s1">**kwargs):</span>
+    <span class="s1">tsne = TSNE( )</span>
+    <span class="s1">tsne.fit_transform(X)</span>
+    <span class="s1">p = tsne.embedding_</span>
+    <span class="s1">q = np.exp(-np.linalg.norm(p[:</span><span class="s2">, </span><span class="s1">np.newaxis</span><span class="s2">, </span><span class="s1">:] - p[np.newaxis</span><span class="s2">, </span><span class="s1">:</span><span class="s2">, </span><span class="s1">:]</span><span class="s2">, </span><span class="s1">axis=</span><span class="s4">2</span><span class="s1">) ** </span><span class="s4">2 </span><span class="s1">/ </span><span class="s4">2</span><span class="s1">)</span>
+    <span class="s1">q /= np.sum(q)</span>
+    <span class="s1">q = np.maximum(q</span><span class="s2">, </span><span class="s1">np.finfo(q.dtype).eps)</span>
+    <span class="s1">p_reshaped = p.reshape(</span><span class="s4">1</span><span class="s2">, </span><span class="s1">p.shape[</span><span class="s4">0</span><span class="s1">]</span><span class="s2">, </span><span class="s1">p.shape[</span><span class="s4">1</span><span class="s1">])</span>
+    <span class="s1">q_reshaped = q[:</span><span class="s2">, </span><span class="s1">:</span><span class="s2">, </span><span class="s1">np.newaxis]</span>
+    <span class="s2">return </span><span class="s1">-np.sum(p_reshaped * np.log(q_reshaped / p_reshaped))</span>
+
+
+<span class="s2">def </span><span class="s1">tsne_scorer(estimator</span><span class="s2">, </span><span class="s1">X</span><span class="s2">, </span><span class="s1">y=</span><span class="s2">None</span><span class="s1">):</span>
+    <span class="s2">return </span><span class="s1">tsne_neg_kl_div(X=X</span><span class="s2">, </span><span class="s1">**estimator.get_params())</span>
+
+
+<span class="s2">def </span><span class="s1">t_sne(df_sector):</span>
+    <span class="s0"># Define the parameter distributions to search over</span>
+    <span class="s1">param_distributions = {</span>
+        <span class="s3">'n_components'</span><span class="s1">: [</span><span class="s4">2</span><span class="s1">]</span><span class="s2">,</span>
+        <span class="s3">'perplexity'</span><span class="s1">: np.arange(</span><span class="s4">5</span><span class="s2">, </span><span class="s4">50</span><span class="s1">)</span><span class="s2">,</span>
+        <span class="s3">'early_exaggeration'</span><span class="s1">: np.arange(</span><span class="s4">1</span><span class="s2">, </span><span class="s4">10</span><span class="s1">)</span><span class="s2">,</span>
+        <span class="s3">'learning_rate'</span><span class="s1">: np.logspace(-</span><span class="s4">4</span><span class="s2">, </span><span class="s4">0</span><span class="s2">, </span><span class="s1">num=</span><span class="s4">100</span><span class="s1">)</span><span class="s2">,</span>
+        <span class="s3">'n_iter'</span><span class="s1">: [</span><span class="s4">250</span><span class="s2">, </span><span class="s4">500</span><span class="s2">, </span><span class="s4">750</span><span class="s2">, </span><span class="s4">1000</span><span class="s2">, </span><span class="s4">5000</span><span class="s1">]</span><span class="s2">,</span>
+        <span class="s3">'metric'</span><span class="s1">: [</span><span class="s3">'cosine'</span><span class="s1">]</span><span class="s2">,</span>
+        <span class="s3">'random_state'</span><span class="s1">: np.arange(</span><span class="s4">1</span><span class="s2">, </span><span class="s4">5</span><span class="s1">)</span>
+        <span class="s1">}</span>
+
+
+
+    <span class="s0"># Create an instance of RandomizedSearchCV with TSNE as the estimator and tsne_neg_kl_div as the scoring function</span>
+    <span class="s1">random_search = RandomizedSearchCV(</span>
+        <span class="s1">estimator=TSNE()</span><span class="s2">,</span>
+        <span class="s1">param_distributions=param_distributions</span><span class="s2">,</span>
+        <span class="s1">n_iter=</span><span class="s4">5</span><span class="s2">,</span>
+        <span class="s1">cv=</span><span class="s4">5</span><span class="s2">,</span>
+        <span class="s1">random_state=</span><span class="s4">0</span><span class="s2">,</span>
+        <span class="s1">scoring=tsne_scorer</span><span class="s2">,</span>
+        <span class="s1">verbose=</span><span class="s4">1</span>
+        <span class="s1">)</span>
+
+    <span class="s0"># Fit the randomized search to the data</span>
+    <span class="s1">random_search.fit(df_sector)</span>
+
+    <span class="s0"># tsne = TSNE(**random_search.best_params_, method='exact')</span>
+    <span class="s0"># tsne_data = tsne.fit_transform(df_S29_pivot)</span>
+
+
+    <span class="s1">tsne_embeddings = []</span>
+
+    <span class="s0"># Loop over the random seeds</span>
+    <span class="s2">for </span><span class="s1">seed </span><span class="s2">in </span><span class="s1">range(</span><span class="s4">1</span><span class="s2">, </span><span class="s4">10</span><span class="s1">):</span>
+
+        <span class="s0"># Fit t-SNE with the current random seed</span>
+        <span class="s1">tsne = TSNE(n_components=random_search.best_params_[</span><span class="s3">'n_components'</span><span class="s1">]</span><span class="s2">,</span>
+                    <span class="s1">perplexity=random_search.best_params_[</span><span class="s3">'perplexity'</span><span class="s1">]</span><span class="s2">,</span>
+                    <span class="s1">early_exaggeration=random_search.best_params_[</span><span class="s3">'early_exaggeration'</span><span class="s1">]</span><span class="s2">,</span>
+                    <span class="s1">learning_rate=random_search.best_params_[</span><span class="s3">'learning_rate'</span><span class="s1">]</span><span class="s2">,</span>
+                    <span class="s1">n_iter=random_search.best_params_[</span><span class="s3">'n_iter'</span><span class="s1">]</span><span class="s2">,</span>
+                    <span class="s1">metric=random_search.best_params_[</span><span class="s3">'metric'</span><span class="s1">]</span><span class="s2">,</span>
+                    <span class="s1">random_state=seed</span><span class="s2">,</span>
+                    <span class="s1">method=</span><span class="s3">'exact'</span>
+                    <span class="s1">)</span>
+
+        <span class="s1">tsne_data = tsne.fit_transform(df_sector)</span>
+
+        <span class="s0"># Store the t-SNE embedding in the list</span>
+        <span class="s1">tsne_embeddings.append(tsne_data)</span>
+
+    <span class="s0"># Convert the list of t-SNE embeddings to a numpy array</span>
+    <span class="s1">tsne_embeddings = np.array(tsne_embeddings)</span>
+
+    <span class="s0"># Compute the mean t-SNE embedding</span>
+    <span class="s1">mean_tsne_embedding = np.mean(tsne_embeddings</span><span class="s2">, </span><span class="s1">axis=</span><span class="s4">0</span><span class="s1">)</span>
+    <span class="s2">return </span><span class="s1">mean_tsne_embedding</span>
+
+
+<span class="s0">#%% 
+</span>
+<span class="s0">#%% 
+</span><span class="s2">def </span><span class="s1">k_means(new_coord):</span>
+    <span class="s1">k_range = range(</span><span class="s4">2</span><span class="s2">, </span><span class="s4">20</span><span class="s1">)</span>
+
+    <span class="s1">silhouette_scores = []</span>
+    <span class="s2">for </span><span class="s1">k </span><span class="s2">in </span><span class="s1">k_range:</span>
+        <span class="s1">kmeans = KMeans(n_clusters=k</span><span class="s2">, </span><span class="s1">random_state=</span><span class="s4">123</span><span class="s1">).fit(new_coord)</span>
+        <span class="s1">labels = kmeans.labels_</span>
+        <span class="s1">score = silhouette_score(new_coord</span><span class="s2">, </span><span class="s1">labels)</span>
+        <span class="s1">silhouette_scores.append(score)</span>
+
+    <span class="s0"># Plot the average silhouette score for each value of k</span>
+    <span class="s1">plt.plot(k_range</span><span class="s2">, </span><span class="s1">silhouette_scores</span><span class="s2">, </span><span class="s3">'bo-'</span><span class="s1">)</span>
+    <span class="s1">plt.xlabel(</span><span class="s3">'Number of clusters (k)'</span><span class="s1">)</span>
+    <span class="s1">plt.ylabel(</span><span class="s3">'Average silhouette score'</span><span class="s1">)</span>
+    <span class="s1">plt.show()</span>
+
+    <span class="s1">optimal_k = k_range[silhouette_scores.index(max(silhouette_scores))]</span>
+
+    <span class="s1">kmeans = KMeans(n_clusters=optimal_k)</span>
+    <span class="s1">clusters = kmeans.fit_predict(new_coord)</span>
+    <span class="s2">return </span><span class="s1">clusters</span>
+
+<span class="s0">#%% 
+</span><span class="s2">def </span><span class="s1">plot_clusters(new_coord</span><span class="s2">, </span><span class="s1">clusters</span><span class="s2">, </span><span class="s1">sector_xx_pivot):</span>
+    <span class="s1">fig = px.scatter(new_coord</span><span class="s2">,</span>
+                 <span class="s1">x=new_coord[:</span><span class="s2">, </span><span class="s4">0</span><span class="s1">]</span><span class="s2">,</span>
+                 <span class="s1">y=new_coord[:</span><span class="s2">, </span><span class="s4">1</span><span class="s1">]</span><span class="s2">,</span>
+                 <span class="s1">text= list(sector_xx_pivot.index)</span><span class="s2">,</span>
+                 <span class="s1">color=clusters</span><span class="s2">,</span>
+                 <span class="s1">labels={</span>
+                     <span class="s3">&quot;text&quot;</span><span class="s1">: </span><span class="s3">&quot;País&quot;</span><span class="s2">,</span>
+                     <span class="s3">&quot;color&quot;</span><span class="s1">: </span><span class="s3">&quot;Grupo&quot;</span><span class="s2">,</span>
+                     <span class="s3">&quot;x&quot;</span><span class="s1">:</span><span class="s3">&quot;&quot;</span><span class="s2">,</span>
+                     <span class="s3">&quot;y&quot;</span><span class="s1">:</span><span class="s3">&quot;&quot;</span><span class="s2">,</span>
+                       <span class="s1">}</span>
+<span class="s1">)</span>
+    <span class="s1">fig.update_traces(textposition=</span><span class="s3">'top center'</span><span class="s1">)</span>
+    <span class="s1">fig.update_coloraxes(showscale=</span><span class="s2">False</span><span class="s1">)</span>
+    <span class="s1">fig.update_layout(yaxis_title=</span><span class="s3">&quot;&quot;</span><span class="s1">)</span>
+
+    <span class="s1">fig.write_html(</span><span class="s3">'scatter_plot.html'</span><span class="s2">, </span><span class="s1">auto_open=</span><span class="s2">True</span><span class="s1">)</span>
+<span class="s0">#%% 
+</span><span class="s2">def </span><span class="s1">plot_clusters_productivity(df</span><span class="s2">, </span><span class="s1">variable):</span>
+    <span class="s1">df = df[df.CIIU_2d==</span><span class="s3">'29'</span><span class="s1">]</span>
+    <span class="s2">for </span><span class="s1">cluster </span><span class="s2">in </span><span class="s1">range(</span><span class="s4">1</span><span class="s2">,</span><span class="s1">df.cluster.max()+</span><span class="s4">1</span><span class="s1">):</span>
+        <span class="s1">print(cluster)</span>
+        <span class="s1">df_plot = df[df.cluster==cluster]</span>
+
+        <span class="s1">sns.lineplot(data=df_plot</span><span class="s2">, </span><span class="s1">x=</span><span class="s3">&quot;t&quot;</span><span class="s2">, </span><span class="s1">y=variable</span><span class="s2">, </span><span class="s1">hue=</span><span class="s3">&quot;country_name_abbreviation&quot;</span><span class="s1">)</span>
+        <span class="s1">plt.show()</span>
+
+<span class="s0">#%% 
+</span><span class="s1">data_p_tsne_kmeans = raw_data[raw_data.t==</span><span class="s4">2019</span><span class="s1">]</span>
+
+<span class="s2">for </span><span class="s1">sector </span><span class="s2">in </span><span class="s1">[</span><span class="s3">'29'</span><span class="s2">,</span>
+               <span class="s0">#'30'</span>
+               <span class="s1">]:</span>
+
+    <span class="s1">sector_xx = split_sector(data_p_tsne_kmeans</span><span class="s2">, </span><span class="s1">sector)</span>
+    <span class="s2">for </span><span class="s1">measures </span><span class="s2">in </span><span class="s1">[</span><span class="s3">&quot;prop_hs_pais&quot;</span><span class="s2">,</span>
+                  <span class="s0">#&quot;prop_hs_mundo&quot;,</span>
+                  <span class="s0">#&quot;prop_pais_mundo&quot;</span>
+                  <span class="s1">]:</span>
+        <span class="s1">sector_xx_pivot_vcr= sector_xx.pivot_table(index=</span><span class="s3">&quot;country&quot;</span><span class="s2">, </span><span class="s1">columns=</span><span class="s3">&quot;k&quot;</span><span class="s2">, </span><span class="s1">values=measures</span><span class="s2">,</span>
+                                               <span class="s1">dropna=</span><span class="s2">True, </span><span class="s1">fill_value=</span><span class="s4">0</span>
+                                               <span class="s1">)</span>
+        <span class="s1">new_coord = t_sne(sector_xx_pivot_vcr)</span>
+        <span class="s1">clusters = k_means(new_coord)</span>
+        <span class="s1">plot_clusters(new_coord</span><span class="s2">, </span><span class="s1">clusters</span><span class="s2">, </span><span class="s1">sector_xx_pivot_vcr)</span>
+
+        <span class="s1">new_sector = sum_expo_sector[sum_expo_sector.CIIU_2d == sector]</span>
+        <span class="s1">new_sector = new_sector[~ (new_sector.country==</span><span class="s3">'an'</span><span class="s1">)]</span>
+        <span class="s1">new_sector = new_sector[~ (new_sector.country==</span><span class="s3">'yt'</span><span class="s1">)]</span>
+
+
+        <span class="s1">sector_xx_pivot_vcr[</span><span class="s3">&quot;cluster&quot;</span><span class="s1">] = clusters</span>
+        <span class="s1">sector_xx_pivot_vcr.reset_index(inplace=</span><span class="s2">True</span><span class="s1">)</span>
+
+        <span class="s1">country_sector_cluster = sector_xx_pivot_vcr[[</span><span class="s3">'country'</span><span class="s2">, </span><span class="s3">'cluster'</span><span class="s1">]]</span>
+
+        <span class="s1">new_sector = new_sector.merge(country_sector_cluster</span><span class="s2">, </span><span class="s1">left_on= </span><span class="s3">'country'</span><span class="s2">, </span><span class="s1">right_on= </span><span class="s3">'country'</span><span class="s2">, </span><span class="s1">how=</span><span class="s3">'left' </span><span class="s1">)</span>
+        <span class="s1">new_sector[</span><span class="s3">'cluster'</span><span class="s1">] = new_sector[</span><span class="s3">'cluster'</span><span class="s1">].astype(int)</span>
+
+        <span class="s1">print(new_sector.shape())</span>
+
+
+        <span class="s1">new_sector.shape()</span>
+
+
+        <span class="s1">plot_clusters_productivity(new_sector</span><span class="s2">, </span><span class="s3">'v'</span><span class="s1">)</span>
+
+
+
+
+
+
+<span class="s0">#%% 
+</span><span class="s1">plot_clusters_productivity(new_sector)</span>
+<span class="s0">#%% 
+</span>
+
+
+
+<span class="s0">#%% 
+</span>
+<span class="s0">#%% 
+# print(new_sector.shape())</span>
+
+
+
+
+<span class="s0">#</span>
+<span class="s0"># print(new_sector.shape())</span>
+<span class="s0">#</span>
+<span class="s0">#         plot_clusters_productivity(new_sector)</span>
+
+
+
+
+<span class="s0">#%% 
+</span><span class="s1">new_sector1 = new_sector.merge(empleo[[</span><span class="s3">'country_name_abbreviation'</span><span class="s2">, </span><span class="s3">'time'</span><span class="s2">, </span><span class="s3">'cod_numeric'</span><span class="s2">, </span><span class="s3">'obs_value' </span><span class="s1">]]</span><span class="s2">, </span><span class="s1">left_on=[</span><span class="s3">'country_name_abbreviation'</span><span class="s2">, </span><span class="s3">'t' </span><span class="s2">, </span><span class="s3">'CIIU_2d'</span><span class="s1">]</span><span class="s2">, </span><span class="s1">right_on=[</span><span class="s3">'country_name_abbreviation'</span><span class="s2">, </span><span class="s3">'time'</span><span class="s2">, </span><span class="s3">'cod_numeric'</span><span class="s1">]</span><span class="s2">, </span><span class="s1">how= </span><span class="s3">'left'</span><span class="s1">)</span>
+<span class="s0">#%% 
+</span><span class="s1">new_sector1[</span><span class="s3">'productividad'</span><span class="s1">] = new_sector1.v/new_sector1.obs_value</span>
+
+
+<span class="s0">#%% 
+</span><span class="s1">plot_clusters_productivity(new_sector1</span><span class="s2">, </span><span class="s3">'productividad'</span><span class="s1">)</span>
+
+<span class="s0">#%% 
+</span><span class="s1">plt.figure(figsize=(</span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s1">))</span>
+<span class="s1">plt.scatter(new_coord[:</span><span class="s2">, </span><span class="s4">0</span><span class="s1">]</span><span class="s2">, </span><span class="s1">new_coord[:</span><span class="s2">, </span><span class="s4">1</span><span class="s1">]</span><span class="s2">, </span><span class="s1">c=clusters</span><span class="s2">, </span><span class="s1">cmap=plt.cm.get_cmap(</span><span class="s3">'tab10'</span><span class="s2">, </span><span class="s4">5</span><span class="s1">))</span>
+<span class="s2">for </span><span class="s1">i</span><span class="s2">, </span><span class="s1">txt </span><span class="s2">in </span><span class="s1">enumerate(list(sector_xx_pivot.index)):</span>
+    <span class="s1">plt.annotate(txt</span><span class="s2">, </span><span class="s1">(new_coord[:</span><span class="s2">, </span><span class="s4">0</span><span class="s1">][i]</span><span class="s2">, </span><span class="s1">new_coord[:</span><span class="s2">, </span><span class="s4">1</span><span class="s1">][i]))</span>
+
+<span class="s1">plt.title(</span><span class="s3">f't-SNE visualization with k-means clustering'</span><span class="s1">)</span>
+<span class="s1">plt.colorbar()</span>
+<span class="s1">plt.show()</span>
+<span class="s0">#%% 
+</span>
+<span class="s0">#%% 
+</span><span class="s1">empleo = empleo[empleo.time&gt;</span><span class="s4">2009</span><span class="s1">]</span>
+<span class="s0">#%% 
+</span><span class="s1">resumen = empleo[[</span><span class="s3">&quot;ref_area&quot;</span><span class="s2">, </span><span class="s3">&quot;time&quot;</span><span class="s1">]].drop_duplicates().groupby([</span><span class="s3">&quot;ref_area&quot;</span><span class="s1">]</span><span class="s2">, </span><span class="s1">as_index=</span><span class="s2">False</span><span class="s1">)[</span><span class="s3">&quot;time&quot;</span><span class="s1">].count()</span>
+<span class="s0">#%% 
+#############################################</span>
+<span class="s0">#############################################</span>
+<span class="s0">#%% 
+</span><span class="s1">df_sector = df[(df.k.astype(str).str.contains(</span><span class="s3">&quot;853890|851130|852719&quot;</span><span class="s1">))]</span>
+<span class="s0">#df[&quot;log_prop_expo&quot;] = np.log(df[&quot;prop_expo&quot;])</span>
+<span class="s0">#%% 
+</span><span class="s1">df_pivot= df_sector.pivot_table(index=</span><span class="s3">&quot;country&quot;</span><span class="s2">, </span><span class="s1">columns=</span><span class="s3">&quot;k&quot;</span><span class="s2">, </span><span class="s1">values=</span><span class="s3">&quot;VCR_norm&quot;</span><span class="s2">, </span><span class="s1">dropna=</span><span class="s2">True</span><span class="s1">)</span>
+<span class="s1">display(df_pivot)</span>
+<span class="s0">#%% md 
+</span><span class="s1">Alternativas para la medición 
+partimos de una idea elemental: exportaciones por trabajador como proxy de la productividad 
+ES posible que ahí las magnitudes jueguen un rol que rompa cosas por lo que mejor ponerlo en términos relativos 
+ 
+$\dfrac{X_{HS;s;p}}{L_{s,p}$ 
+ 
+dos pistas que nos pueden ayudar a pensar: 
+ 
+$VCR = \dfrac{\dfrac{X_{HS;p}}  {X_{HS;w}}} 
+             {\dfrac{X_p}{X_w}}$ 
+&lt;br&gt; 
+Reescriendo también podría pensar en: &lt;br&gt; 
+ 
+$LCR = \dfrac{\dfrac{L_{s;p}}{L_{s;w}}} 
+             {\dfrac{L_p}{L_w}}$ 
+ 
+&lt;br&gt; 
+ 
+capital/trabajo intensivo: &lt;br&gt; 
+ 
+$intensidad = \dfrac{\dfrac{VA_{s;p}}{VA_p}} 
+             {\dfrac{L_{s;p}}{L_p}}$ 
+ 
+&lt;br&gt; 
+**opción 1**&lt;br&gt; 
+ 
+$\dfrac{\dfrac{X_{HS;s;p}}{X_p}} 
+            {\dfrac{L_{s,p}}{L_p}}$ 
+ 
+&lt;br&gt; 
+**opción 2**&lt;br&gt; 
+ 
+$\dfrac{\dfrac{X_{HS;s;p}}{X_{HS;s;w}}} 
+            {\dfrac{L_{s,p}}{L_{s,w}}}$ 
+ 
+**opción 3**&lt;br&gt; 
+$\dfrac{VCR}{LCR}$ 
+ 
+ 
+ 
+ 
+ 
+ 
+</span><span class="s0">#%% 
+</span><span class="s1">fig = px.scatter_3d(df_pivot</span><span class="s2">, </span><span class="s1">x=</span><span class="s4">851130.0</span><span class="s2">, </span><span class="s1">y=</span><span class="s4">852719.0</span><span class="s2">, </span><span class="s1">z=</span><span class="s4">853890.0</span><span class="s2">,</span>
+              <span class="s1">color=df_pivot.index)</span>
+<span class="s1">fig.show()</span>
+<span class="s0">#%% 
+</span><span class="s1">employ = pd.read_csv(</span><span class="s3">r&quot;C:\Users\igalk\OneDrive\Documentos\laburo\CONICET\2023\productivity_comparison\EMP_TEMP_AGE_EC2_NB_A.csv&quot;</span><span class="s1">)</span>
+<span class="s0">#%% 
+</span><span class="s1">employ.classif2 = employ.classif2.replace(to_replace=</span><span class="s3">r&quot;^[^_]*_[^_]*_&quot;</span><span class="s2">, </span><span class="s1">value=</span><span class="s3">''</span><span class="s2">, </span><span class="s1">regex=</span><span class="s2">True</span><span class="s1">)</span>
+
+<span class="s0">#%% 
+</span><span class="s1">employ_sec = employ[(employ.classif2==</span><span class="s3">&quot;D29&quot;</span><span class="s1">)&amp;(employ.time==</span><span class="s4">2015</span><span class="s1">)]</span>
+<span class="s0">#%% 
+</span><span class="s1">employ_sec</span>
+<span class="s0">#%% 
+</span></pre>
+</body>
+</html>

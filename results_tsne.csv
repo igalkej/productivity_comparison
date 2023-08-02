@@ -1,0 +1,201 @@
+runs,parametros,kl_score,best
+0,"{'perplexity': 30, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.1637893706954063}",0.3468626797199249,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+0,"{'perplexity': 55, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.11787686347935866}",-0.0,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+0,"{'perplexity': 35, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.008483428982440717}",0.21083611845970154,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+0,"{'perplexity': 45, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.0008483428982440717}",2.5234600798285102e-06,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+0,"{'perplexity': 35, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.0007196856730011522}",0.21083611845970154,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+0,"{'perplexity': 25, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.01}",0.5085379004478454,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+0,"{'perplexity': 35, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.0016378937069540646}",0.20669689178466796,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+0,"{'perplexity': 55, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.00019306977288832496}",-0.0,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+0,"{'perplexity': 60, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.011787686347935866}",-0.0,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+0,"{'perplexity': 60, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.013894954943731374}",-0.0,"TSNE(learning_rate=0.11787686347935866, metric='cosine', n_iter=5000,
+     perplexity=55, random_state=0)"
+1,"{'perplexity': 25, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.0016378937069540646}",0.508731210231781,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+1,"{'perplexity': 45, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.00016378937069540646}",2.5234600798285102e-06,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+1,"{'perplexity': 50, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.0019306977288832496}",-0.0,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+1,"{'perplexity': 45, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.0011787686347935866}",2.3554088329547084e-06,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+1,"{'perplexity': 35, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.19306977288832497}",0.20669689178466796,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+1,"{'perplexity': 45, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.2682695795279725}",-0.00019098558750556548,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+1,"{'perplexity': 20, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.0013894954943731374}",0.6981449365615845,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+1,"{'perplexity': 40, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.00013894954943731373}",0.09183350652456283,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+1,"{'perplexity': 65, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.00013894954943731373}",-0.0,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+1,"{'perplexity': 55, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.19306977288832497}",-0.0,"TSNE(learning_rate=0.2682695795279725, metric='cosine', n_iter=2000,
+     perplexity=45, random_state=1)"
+2,"{'perplexity': 45, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.1}",-0.00040170490310629246,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+2,"{'perplexity': 25, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.1}",0.5007501065731048,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+2,"{'perplexity': 60, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.007196856730011514}",-0.033179490454494955,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+2,"{'perplexity': 55, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.061054022965853265}",-0.0,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+2,"{'perplexity': 40, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.08483428982440717}",0.09372839331626892,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+2,"{'perplexity': 65, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.0019306977288832496}",-0.0,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+2,"{'perplexity': 60, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.07196856730011514}",-0.009905228996649385,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+2,"{'perplexity': 40, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.0006105402296585327}",0.09183350652456283,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+2,"{'perplexity': 35, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.00031622776601683794}",0.20669689178466796,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+2,"{'perplexity': 45, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.13894954943731375}",-0.0016170619977856405,"TSNE(learning_rate=0.007196856730011514, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=2)"
+3,"{'perplexity': 60, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.01637893706954063}",-0.0,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+3,"{'perplexity': 60, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.01}",-0.07918919362127781,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+3,"{'perplexity': 55, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.008483428982440717}",-0.14929984956979753,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+3,"{'perplexity': 60, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.0013894954943731374}",-0.0,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+3,"{'perplexity': 40, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.05179474679231207}",0.09183350652456283,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+3,"{'perplexity': 65, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.0008483428982440717}",-0.0,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+3,"{'perplexity': 55, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.1637893706954063}",-0.0005800312268547714,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+3,"{'perplexity': 60, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.01}",-0.07918919362127781,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+3,"{'perplexity': 35, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.2682695795279725}",0.21083611845970154,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+3,"{'perplexity': 45, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.01}",-0.07978911586105823,"TSNE(learning_rate=0.008483428982440717, metric='correlation', n_iter=2000,
+     perplexity=55, random_state=3)"
+4,"{'perplexity': 50, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.0022758459260747866}",-0.0,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+4,"{'perplexity': 40, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.00013894954943731373}",0.09393050968647003,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+4,"{'perplexity': 55, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.08483428982440717}",-0.0,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+4,"{'perplexity': 65, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.0006105402296585327}",-0.0,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+4,"{'perplexity': 25, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.019306977288832496}",0.4328520178794861,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+4,"{'perplexity': 60, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.07196856730011514}",-0.0,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+4,"{'perplexity': 50, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.00031622776601683794}",-0.0,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+4,"{'perplexity': 50, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.22758459260747863}",-0.0,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+4,"{'perplexity': 35, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.00026826957952797245}",0.21083611845970154,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+4,"{'perplexity': 30, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.0019306977288832496}",0.3405780911445618,"TSNE(learning_rate=0.0022758459260747866, metric='cosine', perplexity=50,
+     random_state=4)"
+5,"{'perplexity': 45, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.2682695795279725}",-0.00040170490310629246,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+5,"{'perplexity': 40, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.043939705607607904}",0.09393050968647003,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+5,"{'perplexity': 45, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.01}",-0.09164087548851967,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+5,"{'perplexity': 40, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.004393970560760791}",0.08915318846702576,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+5,"{'perplexity': 25, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.03162277660168379}",0.5007501065731048,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+5,"{'perplexity': 30, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.0016378937069540646}",0.3407714247703552,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+5,"{'perplexity': 20, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.0007196856730011522}",0.6981449365615845,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+5,"{'perplexity': 30, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.022758459260747887}",0.3407714247703552,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+5,"{'perplexity': 65, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.07196856730011514}",-0.0,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+5,"{'perplexity': 30, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.13894954943731375}",0.3468626797199249,"TSNE(learning_rate=0.01, metric='correlation', n_iter=2000, perplexity=45,
+     random_state=5)"
+6,"{'perplexity': 40, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.31622776601683794}",0.09183350652456283,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+6,"{'perplexity': 25, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.19306977288832497}",0.5007501065731048,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+6,"{'perplexity': 55, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.00016378937069540646}",-0.0,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+6,"{'perplexity': 40, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.022758459260747887}",0.09183350652456283,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+6,"{'perplexity': 60, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.0005179474679231213}",-0.0,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+6,"{'perplexity': 45, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.00022758459260747887}",2.5234600798285102e-06,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+6,"{'perplexity': 60, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.001}",-0.0,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+6,"{'perplexity': 50, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.061054022965853265}",-0.0,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+6,"{'perplexity': 45, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.0031622776601683794}",-0.06381741352379322,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+6,"{'perplexity': 25, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.1}",0.508731210231781,"TSNE(learning_rate=0.0031622776601683794, metric='correlation', n_iter=2000,
+     perplexity=45, random_state=6)"
+7,"{'perplexity': 45, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.00013894954943731373}",2.5234600798285102e-06,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+7,"{'perplexity': 20, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.0026826957952797246}",0.6981449365615845,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+7,"{'perplexity': 55, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.0003727593720314938}",-0.0,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+7,"{'perplexity': 20, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.1}",0.7079262495040893,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+7,"{'perplexity': 35, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.007196856730011514}",0.21083611845970154,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+7,"{'perplexity': 25, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.00016378937069540646}",0.508731210231781,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+7,"{'perplexity': 65, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.0011787686347935866}",-0.0,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+7,"{'perplexity': 65, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.008483428982440717}",-0.1402479439973831,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+7,"{'perplexity': 30, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.003727593720314938}",0.3468626797199249,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+7,"{'perplexity': 35, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.11787686347935866}",0.20669689178466796,"TSNE(learning_rate=0.008483428982440717, metric='cosine', n_iter=2000,
+     perplexity=65, random_state=7)"
+8,"{'perplexity': 25, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.00031622776601683794}",0.508731210231781,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+8,"{'perplexity': 40, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.003727593720314938}",0.09272573590278625,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+8,"{'perplexity': 35, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.022758459260747887}",0.21083611845970154,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+8,"{'perplexity': 65, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.07196856730011514}",-0.000404228363186121,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+8,"{'perplexity': 25, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.03727593720314938}",0.5007501065731048,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+8,"{'perplexity': 50, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.0013894954943731374}",-0.0,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+8,"{'perplexity': 40, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.03727593720314938}",0.09183350652456283,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+8,"{'perplexity': 65, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.2682695795279725}",-0.0,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+8,"{'perplexity': 40, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.004393970560760791}",0.07373234257102013,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+8,"{'perplexity': 50, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.026826957952797246}",-0.0,"TSNE(learning_rate=0.07196856730011514, metric='cosine', perplexity=65,
+     random_state=8)"
+9,"{'perplexity': 30, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.00026826957952797245}",0.3407714247703552,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
+9,"{'perplexity': 60, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.00022758459260747887}",-0.0,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
+9,"{'perplexity': 50, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.13894954943731375}",-0.0,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
+9,"{'perplexity': 25, 'n_iter': 5000, 'metric': 'cosine', 'learning_rate': 0.0003727593720314938}",0.5007501065731048,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
+9,"{'perplexity': 40, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.03162277660168379}",0.09183350652456283,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
+9,"{'perplexity': 55, 'n_iter': 2000, 'metric': 'correlation', 'learning_rate': 0.011787686347935866}",-0.0,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
+9,"{'perplexity': 60, 'n_iter': 2000, 'metric': 'cosine', 'learning_rate': 0.0011787686347935866}",-0.0,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
+9,"{'perplexity': 65, 'n_iter': 1000, 'metric': 'cosine', 'learning_rate': 0.0022758459260747866}",-0.0,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
+9,"{'perplexity': 55, 'n_iter': 1000, 'metric': 'correlation', 'learning_rate': 0.00043939705607607906}",-0.0,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
+9,"{'perplexity': 60, 'n_iter': 5000, 'metric': 'correlation', 'learning_rate': 0.006105402296585327}",-0.0,"TSNE(learning_rate=0.00022758459260747887, metric='correlation', n_iter=2000,
+     perplexity=60, random_state=9)"
